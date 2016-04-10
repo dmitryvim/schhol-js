@@ -1,13 +1,23 @@
 myElements = [];
 
-function add() {
-    var line = document.getElementById("newElement").value
-    myElements.push(line);
-    drawNewLine(line);
+function newElement(line) {
+    var e = {};
+    e.id = myElements.length;
+    e.text = line;
+    return e;
 }
 
-function drawNewLine(line) {
+
+function add() {
+    var line = document.getElementById("newElement").value
+    var e = newElement(line);
+    myElements.push(e);
+    drawNewLine(e);
+}
+
+function drawNewLine(e) {
     var li = document.createElement("li");
-    li.innerHTML = line;
+    li.id = "item_" + e.id;
+    li.innerHTML = e.text;
     document.getElementById("elementList").appendChild(li);
 }
