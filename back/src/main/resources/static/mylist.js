@@ -46,8 +46,13 @@ function drawNewLine(e) {
 
 function save() {
     json = JSON.stringify(myElements);
-    alert(json);
-    $.post("http://localhost:2105/save", json);
+    $.ajax({
+      url:"http://localhost:2105/save",
+      type:"PUT",
+      data:json,
+      contentType:"application/json; charset=utf-8",
+      dataType:"json"
+    })
 }
 
 
@@ -56,5 +61,6 @@ function load() {
         myElements = data;
     });
     document.getElementById("elementList").innerHTML = "";
+    //TODO грузится со второй попытки
     myElements.forEach(drawNewLine);
 }

@@ -25,17 +25,7 @@ public class ListController {
 
     @RequestMapping(value = "/save", consumes = "application/json")
     public ResponseEntity save(@RequestBody List<Element> elements) {
-        System.out.println(elements.size());
-
-//        LOGGER.info(new String(bytes, StandardCharsets.UTF_8));
-//        ObjectMapper mapper = new ObjectMapper();
-//        try {
-//            this.elements = mapper.readValue(bytes,  mapper.getTypeFactory().constructCollectionType(List.class, Element.class));
-//            LOGGER.info("saved count {}", this.elements.size());
-//        } catch (IOException e) {
-//            LOGGER.error("cannot read text: {}", bytes);
-//            throw new RuntimeException("Cannot read text: " + bytes);
-//        }
+        this.elements = elements;
         return new ResponseEntity(HttpStatus.OK);
     }
 
