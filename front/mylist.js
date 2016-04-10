@@ -2,9 +2,7 @@ var myElements = [];
 var dragElement = null;
 
 function newElement(line) {
-    var e = {};
-    e.id = myElements.length;
-    e.text = line;
+    var e = {id: myElements.length, text: line};
     return e;
 }
 
@@ -44,4 +42,19 @@ function drawNewLine(e) {
                        		return false;
                        	});
     document.getElementById("elementList").appendChild(li);
+}
+
+function save() {
+    json = JSON.stringify(myElements);
+    alert(json);
+}
+
+function loadElements() {
+    return myElements;
+}
+
+function load() {
+    myElements = loadElements();
+    document.getElementById("elementList").innerHTML = "";
+    myElements.forEach(drawNewLine);
 }
