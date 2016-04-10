@@ -8,7 +8,11 @@ public class Element {
     private String id;
     private String text;
 
-    public Element(String text, String id) {
+    public Element() {
+        super();
+    }
+
+    public Element(String id, String text) {
         this.text = text;
         this.id = id;
     }

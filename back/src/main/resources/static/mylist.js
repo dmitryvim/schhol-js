@@ -47,44 +47,14 @@ function drawNewLine(e) {
 function save() {
     json = JSON.stringify(myElements);
     alert(json);
-    $.ajax({
-        type: "PUT",
-        url: "http://localhost:2105/save",
-        dataType: "jsonp",
-        data: {"data": "mydata"},
-        crossDomain: true,
-    });
+    $.post("http://localhost:2105/save", json);
 }
 
-function loadElements() {
-    var my_JSON_object;
-    var http_request = new XMLHttpRequest();
-    http_request.open("GET", "http://localhost:2105/load", true);
-    http_request.setRequestHeader('Access-Control-Allow-Origin', '*');
-    http_request.onreadystatechange = function () {
-        var done = 4, ok = 200;
-        if (http_request.readyState === done && http_request.status === ok) {
-            myElements = JSON.parse(http_request.responseText);
-        }
-    };
-    http_request.send();
-
-//    $.ajax({
-//      url: "http://localhost:2105/load",
-//      dataType: "jsonp",
-//      type: "GET",
-//      success: function (data) {console.log(data);},
-//      error: function(d1, d2, d3)  {console.log(d1);console.log(d2);console.log(d3);},
-//    });
-
-//    $.getJSON( "http://localhost:2105/load", function( data ) {
-//      myElements = $.parseJSON(data);
-//    });
-    return myElements;
-}
 
 function load() {
-    myElements = loadElements();
+    $.getJSON( "http://localhost:2105/load", function(data) {
+        myElements = data;
+    });
     document.getElementById("elementList").innerHTML = "";
     myElements.forEach(drawNewLine);
 }
