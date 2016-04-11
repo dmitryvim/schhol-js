@@ -40,8 +40,10 @@ function createElement(id, text) {
         if (myElements.length > 1) {
             var list = document.getElementById("elementList")
             list.removeChild(dragElement);
+            //TODO fixme
             var li = createElement(e.dataTransfer.getData("id"), e.dataTransfer.getData("text"));
-            this.parentNode.insertBefore(dragElement, this);
+            this.parentNode.insertBefore(li, this);
+            save();
         }
         return false;
     });
@@ -64,7 +66,7 @@ function save() {
     })
 }
 
-
+//TODO make load on message
 function load() {
     $.getJSON( "/load", function(data) {
         myElements = data;
