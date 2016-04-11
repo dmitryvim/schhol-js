@@ -15,10 +15,10 @@ function add() {
     drawNewLine(e);
 }
 
-function drawNewLine(e) {
+function createElement(id, text) {
     var div = document.createElement("div");
-    div.id = e.id;
-    div.innerHTML = e.text;
+    div.id = id;
+    div.innerHTML = text;
     var li = document.createElement("li");
     li.draggable = true;
     li.appendChild(div);
@@ -28,22 +28,28 @@ function drawNewLine(e) {
         dragElement = this;
     });
     li.addEventListener('dragover', function(e) {
-                        		if (e.preventDefault) {
-                        			e.preventDefault();
-                        		}
-                        		e.dataTransfer.dropEffect = 'move';
-                        		return false;
-                        	});
+        if (e.preventDefault) {
+            e.preventDefault();
+        }
+        e.dataTransfer.dropEffect = 'move';
+        return false;
+    });
     li.addEventListener('drop', function(e) {
-                       		if (e.preventDefault) e.preventDefault();
-                         	if (e.stopPropagation) e.stopPropagation();
-                         	if (myElements.length > 1) {
-                                var list = document.getElementById("elementList")
-                                list.removeChild(dragElement);
-                       		    this.parentNode.insertBefore(dragElement, this);
-                       		}
-                       		return false;
-                       	});
+        if (e.preventDefault) e.preventDefault();
+        if (e.stopPropagation) e.stopPropagation();
+        if (myElements.length > 1) {
+            var list = document.getElementById("elementList")
+            list.removeChild(dragElement);
+            var li = createElement(e.dataTransfer.getData("id"), e.dataTransfer.getData("text"));
+            this.parentNode.insertBefore(dragElement, this);
+        }
+        return false;
+    });
+    return li;
+}
+
+function drawNewLine(e) {
+    var li = createElement(e.id, e.text);
     document.getElementById("elementList").appendChild(li);
 }
 
