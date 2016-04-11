@@ -50,7 +50,7 @@ function drawNewLine(e) {
 function save() {
     json = JSON.stringify(myElements);
     $.ajax({
-      url:"http://localhost:2105/save",
+      url:"/save",
       type:"PUT",
       data:json,
       contentType:"application/json; charset=utf-8",
@@ -60,7 +60,7 @@ function save() {
 
 
 function load() {
-    $.getJSON( "http://localhost:2105/load", function(data) {
+    $.getJSON( "/load", function(data) {
         myElements = data;
         document.getElementById("elementList").innerHTML = "";
         myElements.forEach(drawNewLine);
