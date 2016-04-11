@@ -62,8 +62,7 @@ function save() {
 function load() {
     $.getJSON( "http://localhost:2105/load", function(data) {
         myElements = data;
+        document.getElementById("elementList").innerHTML = "";
+        myElements.forEach(drawNewLine);
     });
-    document.getElementById("elementList").innerHTML = "";
-    //TODO грузится со второй попытки
-    myElements.forEach(drawNewLine);
 }
