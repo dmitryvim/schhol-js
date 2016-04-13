@@ -23,8 +23,8 @@ function createElement(id, text) {
     li.draggable = true;
     li.appendChild(div);
     li.addEventListener('dragstart', function(e) {
-        e.dataTransfer.setData("id", e.id);
-        e.dataTransfer.setData("text", e.text);
+        e.dataTransfer.setData("id", this.id);
+        e.dataTransfer.setData("text", this.innerHTML);
         dragElement = this;
     });
     li.addEventListener('dragover', function(e) {
@@ -40,7 +40,6 @@ function createElement(id, text) {
         if (myElements.length > 1) {
             var list = document.getElementById("elementList")
             list.removeChild(dragElement);
-            //TODO fixme
             var li = createElement(e.dataTransfer.getData("id"), e.dataTransfer.getData("text"));
             this.parentNode.insertBefore(li, this);
             save();
