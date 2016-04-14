@@ -65,7 +65,6 @@ function save() {
     })
 }
 
-//TODO make load on message
 function load() {
     $.getJSON( "/load", function(data) {
         myElements = data;
@@ -73,3 +72,14 @@ function load() {
         myElements.forEach(drawNewLine);
     });
 }
+
+function sheduledLooad() {
+    load()
+    setTimeout(sheduledLooad, 30000);
+}
+
+window.onload = function () {
+    sheduledLooad();
+}
+
+
