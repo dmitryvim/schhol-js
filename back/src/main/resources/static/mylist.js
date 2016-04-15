@@ -11,20 +11,24 @@ function add() {
     var line = document.getElementById("newElement").value
     document.getElementById("newElement").value = "";
     var e = newElement(line);
+    load();
     myElements.push(e);
+    save();
     drawNewLine(e);
 }
 
 function createElement(id, text) {
     var div = document.createElement("div");
     div.id = id;
-    div.innerHTML = text;
+    div.innerHTML = $("<div>").text(text).html();
+    ;
     var li = document.createElement("li");
     li.draggable = true;
     li.appendChild(div);
     li.addEventListener('dragstart', function(e) {
         e.dataTransfer.setData("id", this.id);
         e.dataTransfer.setData("text", this.innerHTML);
+        e.dataTransfer.setData("type", "schhol-js-drag-and-drop");
         dragElement = this;
     });
     li.addEventListener('dragover', function(e) {
@@ -37,12 +41,11 @@ function createElement(id, text) {
     li.addEventListener('drop', function(e) {
         if (e.preventDefault) e.preventDefault();
         if (e.stopPropagation) e.stopPropagation();
-        if (myElements.length > 1) {
+        if ((myElements.length > 1) && (e.dataTransfer.getData("type") == "schhol-js-drag-and-drop")) {
             var list = document.getElementById("elementList")
             list.removeChild(dragElement);
             var li = createElement(e.dataTransfer.getData("id"), e.dataTransfer.getData("text"));
             this.parentNode.insertBefore(li, this);
-            save();
         }
         return false;
     });
@@ -75,7 +78,7 @@ function load() {
 
 function sheduledLooad() {
     load()
-    setTimeout(sheduledLooad, 30000);
+    setTimeout(sheduledLooad, 10000);
 }
 
 window.onload = function () {
