@@ -14,7 +14,8 @@ function add() {
     load();
     myElements.push(e);
     save();
-    drawNewLine(e);
+    //TODO fix reorder
+    drawLines();
 }
 
 function createElement(id, text) {
@@ -71,9 +72,13 @@ function save() {
 function load() {
     $.getJSON( "/load", function(data) {
         myElements = data;
-        document.getElementById("elementList").innerHTML = "";
-        myElements.forEach(drawNewLine);
+        drawLines();
     });
+}
+
+function drawLines() {
+    document.getElementById("elementList").innerHTML = "";
+    myElements.forEach(drawNewLine);
 }
 
 function sheduledLooad() {
